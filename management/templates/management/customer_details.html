@@ -1,0 +1,143 @@
+{% extends 'management/base.html' %} {% block content %}
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Vue Détaillée - {{customer.nom_complet}} </h1>
+    <a href=" {% url 'management:order_create' customer.pk %} " class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+        <i class="fas fa-download fa-sm text-white-50"></i> Nouvelle Facture
+    </a>
+    <a href="#" data-toggle="modal" data-target="#DetailsModal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-download fa-sm text-white-50"></i> Détails Complets
+    </a>
+</div>
+
+<!-- Content Row -->
+<div class="row">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-6 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Montant Total des Factures</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{customer.total_des_depenses}} FCFA</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-money-bill-wave fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-6 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Commandes</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{order_count}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-receipt fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Liste Des Commandes de M(me) {{customer.nom_complet}}</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Date de commande</th>
+                        <th>Total Pieces</th>
+                        <th>Montant Total</th>
+                        <th>Remise</th>
+                        <th>Somme Finale</th>
+                        <th>Statut</th>
+                        <th>Notes</th>
+                        <th>Modifier</th>
+                        <th>Supprimer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.date_enregistrement }}</td>
+                        <td>{{ order.total_pcs }}</td>
+                        <td>{{ order.montant_total }} FCFA</td>
+                        <td>{{ order.remise }} %</td>
+                        <th>{{ order.somme_finale }} FCFA</th>
+                        <td>{{ order.statut }}</td>
+                        <td>{{ order.note }}</td>
+                        <td><a class="btn btn-sm btn-outline-warning btn-block" href="{% url 'management:order_update' order.pk order.somme_finale %}">Modifier</a></td>
+                        <td><a class="btn btn-sm btn-outline-danger btn-block" href="{% url 'management:order_delete_from_details' order.pk %}">Supprimer</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- Creation Modal -->
+<div class="modal fade" id="DetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Vue Détaillée</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Nom et Prenom:: </th>
+                                    <td> {{customer.nom_complet}} </td>
+                                </tr>
+                                <tr>
+                                    <th>Telephone:: </th>
+                                    <td> {{customer.telephone}} </td>
+                                </tr>
+                                <tr>
+                                    <th>Email:: </th>
+                                    <td> {{customer.email}} </td>
+                                </tr>
+                                <tr>
+                                    <th>Date De Naissance:: </th>
+                                    <td> {{customer.date_de_naissance}} </td>
+                                </tr>
+                                <tr>
+                                    <th>Adresse:: </th>
+                                    <td> {{customer.adresse}} </td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Retour</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

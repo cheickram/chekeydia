@@ -1,0 +1,203 @@
+{% extends 'management/base.html' %} {% block content %}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Tableau de bord</h1>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+</div>
+
+<!-- Content Row -->
+<div class="row">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-2 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Nombre de Ventes Journalier</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"> {{today_orders}} </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar- fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-2 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Revenu Journalier</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"> {{today_orders_price}} F</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-2 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Revenu Hebdomadaire</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"> {{week_orders_price}} F</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-2 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Revenu Mensuel (Mois courant)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{month_orders_price}} F</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-2 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Revenu Trimestre {{quater_description}} </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"> {{quater_orders_price}} F</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-2 col-md-6 mb-4">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Revenu Annuel (Jan - Dec)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{year_orders_price}} F</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Content Row -->
+
+<div class="row">
+
+    <!-- Area Chart -->
+    <div class="col-xl-6 col-lg-6">
+        <!-- Card Body -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Dix (10) dernières factures</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <!-- <th>Id Commande</th> -->
+                                <th>Client</th>
+                                <th>Date de commande</th>
+                                <th>Total Pieces</th>
+                                <th>Prix</th>
+                                <th>Statut</th>
+                                <th>Supprimer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                <td>{{ order.client.nom_complet }}</td>
+                                <td>{{ order.date_enregistrement }}</td>
+                                <td> <strong> {{ order.total_pcs }} </strong> </td>
+                                <td>{{ order.montant_total }} FCFA</td>
+                                <td>{{ order.statut }}</td>
+
+                                <td><a class="btn btn-sm btn-outline-danger btn-block" href="{% url 'management:order_delete_from_dash' order.pk %}">Supprimer</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie Chart -->
+    <div class="col-xl-6 col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Liste des Clients</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Nom</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <!-- <tfoot>
+                            <tr>
+                                <th>Client</th> -->
+                        <!-- <th>Telephone</th> -->
+                        <!-- <th></th>
+                            </tr>
+                        </tfoot> -->
+
+                        <tbody id="myTable">
+                            {% for customer in customers %}
+                            <tr>
+                                <td>{{ customer.nom_complet }} </td>
+                                <td>{{ customer.telephone }}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-outline-success btn-block" href=" {% url 'management:customer_details' customer.pk %} " class="">Détails ou facture</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

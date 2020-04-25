@@ -1,0 +1,47 @@
+{% extends 'management/base.html' %} {% load crispy_forms_tags %} {% block content %}
+
+
+<div class="row justify-content-center">
+
+    <div class="col-xl-10 col-lg-12 col-md-9">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Section de modification:: </h1>
+                            </div>
+                            <form class="user" method="POST" action="">
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 mb-0">
+                                        {{ form.code|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-6 mb-0">
+                                        {{ form.nom|as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4 mb-0"></div>
+                                    <div class="form-group col-md-2 mb-0">
+                                        <a class="btn btn-primary btn-user btn-block" href="{% url 'management:category_list' %}">Annuler</a>
+                                    </div>
+                                    <div class="form-group col-md-2 mb-0">
+                                        <button value="Login" type="submit" class="btn btn-success btn-user btn-block">Modifier</button>
+                                    </div>
+                                    <div class="form-group col-md-4 mb-0"></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endblock content %}

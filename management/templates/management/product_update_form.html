@@ -1,0 +1,116 @@
+{% extends 'management/base.html' %} {% load crispy_forms_tags %} {% block content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"> <strong class="text-danger">{{error}}</strong></h1>
+
+
+    <a href="#" data-toggle="modal" data-target="#Modal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-download fa-sm text-white-50"></i> Ajouter Un Produit
+    </a>
+    <a href=" {% url 'management:update_bill_validation' order.pk old_total %} " class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+        <i class="fas fa-download fa-sm text-white-50"></i> Terminer la commande {{order.pk}}
+    </a>
+</div>
+
+
+
+
+
+{% if products %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Détails des articles - Client:: {{ order.client.nom_complet }}</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Code Produit</th>
+                        <th>Prix</th>
+                        <th>Catégorie</th>
+                        <th>Marque</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td> {{product.code}} </td>
+                        <td> {{product.stock.prix_final}} FCFA</td>
+                        <td> {{product.stock.categorie.nom}} </td>
+                        <td> {{product.stock.marque.nom}} </td>
+                        <td>
+                            <a class="btn btn-sm btn-outline-danger btn-block" href=" {% url 'management:product_delete_while_modifying' order.pk product.pk old_total %} ">Supprimer</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<div class="alert alert-warning alert-dismissible fade show">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Aucun produit associé à cette facture pour l'instant</strong>
+</div>
+{% endif %}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Détails généraux</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Nombre de Pièces</th>
+                        <th>Montant Total</th>
+                        <th>Remise</th>
+                        <th>Somme Finale</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> {{ order.total_pcs }} </td>
+                        <td> {{ order.montant_total }} FCFA</td>
+                        <td> {{ order.remise }} %</td>
+                        <td> <strong>{{ order.somme_finale }} FCFA</strong> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- Creation Modal -->
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter un Autre Produit</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post">
+                    {% csrf_token %} {{form|crispy}}
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                        <button class="btn btn-primary" value="save" type="submit">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

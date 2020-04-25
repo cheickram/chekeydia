@@ -1,0 +1,72 @@
+{% extends 'management/base.html' %} {% load crispy_forms_tags %} {% block content %}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Catégories Enregistrées</h1>
+    <a href="#" data-toggle="modal" data-target="#CategoryModal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Nouvelle Catégorie </a>
+</div>
+
+
+<!-- Page Heading -->
+<p class="mb-4">Cette page vous donne accès aux informations concernant les catégories existantes</p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Nom</th>
+                        <th>Modifier</th>
+                        <th>Supprimer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for categorie in categories %}
+                    <tr>
+                        <td> {{categorie.code}} </td>
+                        <td>{{categorie.nom}}</td>
+                        <td>
+                            <a class="btn btn-sm btn-outline-warning btn-block" href=" {% url 'management:category_update' categorie.pk %} ">Modifier</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-sm btn-outline-danger btn-block" href=" {% url 'management:category_delete' categorie.pk %} ">Supprimer</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Creation Modal -->
+<div class="modal fade" id="CategoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nouvelle Categorie</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post">
+                    {% csrf_token %} {{form|crispy}}
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                        <button class="btn btn-primary" value="save" type="submit">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
