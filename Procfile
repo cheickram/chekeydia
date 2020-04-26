@@ -1,1 +1,1 @@
-web: gunicorn SheKeyDia.wsgi --log-file -
+web: gunicorn SheKeyDiA.wsgi --log-file -

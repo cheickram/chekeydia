@@ -25,7 +25,7 @@ class UserCreateForm(UserCreationForm):
           for fieldname in ['username', 'first_name', 'last_name', 'email', 'password1', 'password2',]:
                self.fields[fieldname].help_text = None
 
-          self.fields['is_staff'].label = 'Membre du staff' 
+          self.fields['is_staff'].label = 'Membre du staff ?' 
           self.fields['is_staff'].help_text = 'Précise si Membre du staff peut se connecter au site d\'administration.' 
 
 

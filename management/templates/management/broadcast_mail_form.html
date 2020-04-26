@@ -1,0 +1,123 @@
+{% extends 'management/base.html' %} {% load crispy_forms_tags %} {% block style %}
+<style>
+    .active-pink-textarea.md-form label.active {
+        color: #f48fb1;
+    }
+    
+    .pink-textarea textarea.md-textarea:focus:not([readonly]) {
+        border-bottom: 1px solid #f48fb1;
+        box-shadow: 0 1px 0 0 #f48fb1;
+    }
+    
+    .pink-textarea.md-form .prefix.active {
+        color: #f48fb1;
+    }
+    
+    .active-pink-textarea.md-form textarea.md-textarea:focus:not([readonly])+label {
+        color: #f48fb1;
+    }
+    
+    .active-amber-textarea.md-form label.active {
+        color: #ffa000;
+    }
+    
+    .amber-textarea textarea.md-textarea:focus:not([readonly]) {
+        border-bottom: 1px solid #ffa000;
+        box-shadow: 0 1px 0 0 #ffa000;
+    }
+    
+    .amber-textarea.md-form .prefix.active {
+        color: #ffa000;
+    }
+    
+    .active-amber-textarea.md-form textarea.md-textarea:focus:not([readonly])+label {
+        color: #ffa000;
+    }
+    
+    .active-pink-textarea-2 textarea.md-textarea {
+        border-bottom: 1px solid #f48fb1;
+        box-shadow: 0 1px 0 0 #f48fb1;
+    }
+    
+    .active-pink-textarea-2.md-form label.active {
+        color: #f48fb1;
+    }
+    
+    .active-pink-textarea-2.md-form label {
+        color: #f48fb1;
+    }
+    
+    .active-pink-textarea-2.md-form .prefix {
+        color: #f48fb1;
+    }
+    
+    .active-pink-textarea-2.md-form textarea.md-textarea:focus:not([readonly])+label {
+        color: #f48fb1;
+    }
+    
+    .active-amber-textarea-2 textarea.md-textarea {
+        border-bottom: 1px solid #ffa000;
+        box-shadow: 0 1px 0 0 #ffa000;
+    }
+    
+    .active-amber-textarea-2.md-form label.active {
+        color: #ffa000;
+    }
+    
+    .active-amber-textarea-2.md-form label {
+        color: #ffa000;
+    }
+    
+    .active-amber-textarea-2.md-form .prefix {
+        color: #ffa000;
+    }
+    
+    .active-amber-textarea-2.md-form textarea.md-textarea:focus:not([readonly])+label {
+        color: #ffa000;
+    }
+</style>
+{% endblock style %} {% block content %}
+
+
+<div class="row justify-content-center">
+
+    <div class="col-xl-10 col-lg-12 col-md-9">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Cet email sera diffusé à tous vos clients</h1>
+                            </div>
+                            <form class="user" method="POST" action="">
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <!-- <div class="form-group col-md-12 mb-0"> -->
+                                    <div class="md-form amber-textarea active-amber-textarea col-md-12 mb-0">
+                                        <i class="fas fa-pencil-alt prefix"></i>
+                                        <textarea id="form22" class="md-textarea form-control" rows="6" name="email_broadcast"></textarea>
+                                        <label for="form22">Saisissez votre message ici</label>
+                                    </div>
+                                    <!-- </div> -->
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4 mb-0"></div>
+                                    <div class="form-group col-md-4 mb-0">
+                                        <button value="Login" type="submit" class="btn btn-warning btn-user btn-block">Envoyer</button>
+                                    </div>
+                                    <div class="form-group col-md-4 mb-0"></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endblock content %}

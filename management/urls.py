@@ -15,6 +15,16 @@ urlpatterns = [
 
      # 3 - Consits of logging out the current user connected
      path('logout/', views.logoutUser, name='logout'),
+     
+     # 4 - Consits of displaying the 404 page
+     path('page404/', views.page404, name='page404'),
+     
+     # 5 - Consits of sending a customed email to a specified customer
+     path('email_customer/<int:customer_pk>', views.emailCustomer, name='email_customer'),
+     
+     # 6 - Consits of sending a customed email to a specified customer
+     path('email_broadcast/', views.emailBroadcast, name='email_broadcast'),
+     
 
 # ------------------------------------------------------------------------------------- #
 

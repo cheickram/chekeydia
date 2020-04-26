@@ -1,8 +1,23 @@
-{% extends 'management/base.html' %} {% block content %}
-
+{% extends 'management/base.html' %} {% block search %}
+<!-- Topbar Search -->
+<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="" method="POST">
+    {% csrf_token %}
+    <div class="input-group">
+        <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">
+                <i class="fas fa-search fa-sm"></i>
+            </button>
+        </div>
+    </div>
+</form>
+{% endblock search %} {% block content %}
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Tableau de bord</h1>
+    {% if error %}
+    <h1 class="h3 mb-0 text-gray-800">Tableau de bord</h1>
+    {% endif %}
     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
 </div>
 
@@ -116,7 +131,7 @@
 <div class="row">
 
     <!-- Area Chart -->
-    <div class="col-xl-6 col-lg-6">
+    <div class="col-xl-7 col-lg-6">
         <!-- Card Body -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -156,7 +171,7 @@
     </div>
 
     <!-- Pie Chart -->
-    <div class="col-xl-6 col-lg-6">
+    <div class="col-xl-5 col-lg-6">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Liste des Clients</h6>
@@ -166,8 +181,8 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>Code</th>
-                                <th>Nom</th>
+                                <th>Client</th>
+                                <th>Telephone</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -197,7 +212,5 @@
         </div>
     </div>
 </div>
-
-
 
 {% endblock content %}

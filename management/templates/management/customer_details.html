@@ -2,6 +2,9 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Vue Détaillée - {{customer.nom_complet}} </h1>
+    <a href=" {% url 'management:email_customer' customer.pk %} " class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm">
+        <i class="fas fa-pencil-alt fa-sm text-white-50"></i> Envoyer un Mail
+    </a>
     <a href=" {% url 'management:order_create' customer.pk %} " class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
         <i class="fas fa-download fa-sm text-white-50"></i> Nouvelle Facture
     </a>
