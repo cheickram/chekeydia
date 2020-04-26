@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '3mhc9w)aq*yolj2gnn1bnvn_4qhaq)#rj6-nxc%(=udow8pt^3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['chekeydia.herokuapp.com', '127.0.0.1']
 
